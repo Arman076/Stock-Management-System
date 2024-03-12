@@ -1,0 +1,30 @@
+#================IMS ERROR IN QTY STATUS SECTION WHEN IMPLEMENT THIS================
+
+def middle(self):
+con=sqlite3.connect(database=r'ims.db')
+        cur=con.cursor()
+        
+        try:
+            for row in self.cart_list:
+                pid=row[0]
+                name=row[1]
+                qty=int(row[4])-int(row[3])
+                
+                if int(row[3])==int(row[4]):
+                    status='InActive'
+                    
+                if int(row[3])!=int(row[4]):
+                    status='Active'
+                
+                price=float(row[2])*int(row[3])
+                price=str(price)
+                self.txt_bill_area.insert(END,"\n "+name+"\t\t"+row[3]+"\tRs."+price)
+                
+                cur.execute('Update producted set qty=?,status=? where pid=? ',(
+                    qty,
+                    status,
+                    pid
+                ))
+                con.commit()
+            con.close()
+            self.show()
