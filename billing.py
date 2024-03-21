@@ -280,7 +280,7 @@ class Billing_Class:
         cur=con.cursor()
        
         try:
-            cur.execute("Select pid,name,price,qty,status from producted where status='Active'")
+            cur.execute("Select pid,name,price,qty,status from producteds where status='Active'")
             rows=cur.fetchall()
             self.ProductTable.delete(*self.ProductTable.get_children())
             for row in rows:
@@ -299,7 +299,7 @@ class Billing_Class:
             if self.var_search.get()=="":
                 messagebox.showerror("Error","Text Field Are input Required",parent=self.root)
             else:
-                cur.execute("Select pid,name,price,qty,status from producted where name LIKE '%"+self.var_search.get()+"%' and status='Active'")
+                cur.execute("Select pid,name,price,qty,status from producteds where name LIKE '%"+self.var_search.get()+"%' and status='Active'")
                 rows=cur.fetchall()
                 if len(rows)!=0:
                     self.ProductTable.delete(*self.ProductTable.get_children())
