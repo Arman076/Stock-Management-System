@@ -99,19 +99,19 @@ class IMS:
         con=sqlite3.connect(database='ims.db')
         cur=con.cursor()
         try:
-            cur.execute("select * from employee")
+            cur.execute("select * from employees")
             employee=cur.fetchall()
             self.lbl_employee.config(text=f"Total Employee\n[ {str(len(employee))} ]")
             
-            cur.execute("select * from supplier")
+            cur.execute("select * from suppliers")
             suppliers=cur.fetchall()
             self.lbl_supplier.config(text=f"Total Suppliers\n[ {str(len(suppliers))} ]")
             
-            cur.execute("select * from category")
+            cur.execute("select * from categorys")
             categorys=cur.fetchall()
             self.lbl_category.config(text=f"Total Category\n[ {str(len(categorys))} ]")
             
-            cur.execute("select * from producted")
+            cur.execute("select * from producteds")
             product=cur.fetchall()
             self.lbl_product.config(text=f"Total Product\n[ {str(len(product))} ]")
             
