@@ -120,12 +120,12 @@ class SupplierClass:
             if self.var_sup_invoice.get()=="":
                 messagebox.showerror("Error","Invoice  Must Be Required",parent=self.root)
             else:
-                cur.execute("Select * from supplier where invoice=?",(self.var_sup_invoice.get(),))
+                cur.execute("Select * from suppliers where invoice=?",(self.var_sup_invoice.get(),))
                 row = cur.fetchone()
                 if row!=None:
                     messagebox.showerror("Error","This Inoice No Already Assigned",parent=self.root)
                 else:
-                    cur.execute("Insert into supplier(invoice,name,contact,description) values(?,?,?,?)",(
+                    cur.execute("Insert into suppliers(invoice,name,contact,description) values(?,?,?,?)",(
                                                                 self.var_sup_invoice.get(),
                                                                 self.var_name.get(),
                                                                 self.var_contact.get(),
@@ -143,7 +143,7 @@ class SupplierClass:
         con=sqlite3.connect(database=r'ims.db')
         cur=con.cursor()
         try:
-            cur.execute("Select * from supplier")
+            cur.execute("Select * from suppliers")
             rows=cur.fetchall()
             self.SupplierTable.delete(*self.SupplierTable.get_children())
             for row in rows:
@@ -175,12 +175,12 @@ class SupplierClass:
             if self.var_sup_invoice.get()=="":
                 messagebox.showerror("Error","Invoice No Must Be Required",parent=self.root)
             else:
-                cur.execute("Select * from supplier where invoice=?",(self.var_sup_invoice.get(),))
+                cur.execute("Select * from suppliers where invoice=?",(self.var_sup_invoice.get(),))
                 row = cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Invalid Invoice No",parent=self.root)
                 else:
-                    cur.execute("Update supplier set name=?,contact=?,description=? where invoice=?",(
+                    cur.execute("Update suppliers set name=?,contact=?,description=? where invoice=?",(
                                                                 self.var_name.get(),
                                                                 self.var_contact.get(),
                                                                 self.txt_description.get('1.0',END),
@@ -199,14 +199,14 @@ class SupplierClass:
             if self.var_sup_invoice.get()=="":
                 messagebox.showerror("Error","Invoce No Must Be Required",parent=self.root)
             else:
-                cur.execute("Select * from supplier where invoice=?",(self.var_sup_invoice.get(),))
+                cur.execute("Select * from suppliers where invoice=?",(self.var_sup_invoice.get(),))
                 row = cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Invalid Invoice No",parent=self.root)
                 else:
                     op=messagebox.askyesno("Confirm","Do You Really Want To Delete",parent=self.root)
                     if op==True:
-                        cur.execute("delete from supplier where invoice=?",(self.var_sup_invoice.get(),))
+                        cur.execute("delete from suppliers where invoice=?",(self.var_sup_invoice.get(),))
                         con.commit()
                         messagebox.showinfo("Success","supplier Data Deleted successfully",parent=self.root)
                         #self.show()
@@ -231,7 +231,7 @@ class SupplierClass:
             if self.var_searchtxt.get()=="":
                 messagebox.showerror("Error","Invoice No Required",parent=self.root)
             else:
-                cur.execute("Select * from supplier where invoice=?",(self.var_searchtxt.get(),))
+                cur.execute("Select * from suppliers where invoice=?",(self.var_searchtxt.get(),))
                 row=cur.fetchall()
                 if row!=None:
                     self.SupplierTable.delete(*self.SupplierTable.get_children())

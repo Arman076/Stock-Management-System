@@ -77,12 +77,12 @@ class category_Class:
             if self.var_name.get()=="":
                 messagebox.showerror("Error","Category name Required",parent=self.root)
             else:
-                cur.execute("Select * from category where name=?",(self.var_name.get(),))
+                cur.execute("Select * from categorys where name=?",(self.var_name.get(),))
                 row = cur.fetchone()
                 if row!=None:
                     messagebox.showerror("Error","Category Already There",parent=self.root)
                 else:
-                    cur.execute("Insert into category (name) values(?)",(self.var_name.get(),))
+                    cur.execute("Insert into categorys (name) values(?)",(self.var_name.get(),))
                     con.commit()
                     messagebox.showinfo("Successfully","category Data Has Been Added Successfully",parent=self.root)
                     self.show()
@@ -94,7 +94,7 @@ class category_Class:
         con=sqlite3.connect(database=r'ims.db')
         cur=con.cursor()
         try:
-            cur.execute("select * from category")
+            cur.execute("select * from categorys")
             rows=cur.fetchall()
             self.Category_Table.delete(*self.Category_Table.get_children())
             for row in rows:
@@ -118,14 +118,14 @@ class category_Class:
             if self.var_cat_id.get()=="":
                 messagebox.showerror("Error","please select category from the list",parent=self.root)
             else:
-                cur.execute("Select * from category where cid=?",(self.var_cat_id.get(),))
+                cur.execute("Select * from categorys where cid=?",(self.var_cat_id.get(),))
                 row = cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Try Again",parent=self.root)
                 else:
                     op=messagebox.askyesno("Confirm","Do You Really Want To Delete",parent=self.root)
                     if op==True:
-                        cur.execute("delete from category where cid=?",(self.var_cat_id.get(),))
+                        cur.execute("delete from categorys where cid=?",(self.var_cat_id.get(),))
                         con.commit()
                         messagebox.showinfo("Success","category Data Deleted successfully",parent=self.root)
                         self.show()

@@ -163,12 +163,12 @@ class employeeClass:
             if self.var_emp_id.get()=="":
                 messagebox.showerror("Error","Employee Id Must Be Required",parent=self.root)
             else:
-                cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
+                cur.execute("Select * from employees where eid=?",(self.var_emp_id.get(),))
                 row = cur.fetchone()
                 if row!=None:
                     messagebox.showerror("Error","This Employee Id Already Assigned",parent=self.root)
                 else:
-                    cur.execute("Insert into employee(eid,name,email,gender,contact,dob,doj,password,utype,address,salary) values(?,?,?,?,?,?,?,?,?,?,?)",(
+                    cur.execute("Insert into employees(eid,name,email,gender,contact,dob,doj,password,utype,address,salary) values(?,?,?,?,?,?,?,?,?,?,?)",(
                                                                 self.var_emp_id.get(),
                                                                 self.var_name.get(),
                                                                 self.var_email.get(),
@@ -193,7 +193,7 @@ class employeeClass:
         con=sqlite3.connect(database=r'ims.db')
         cur=con.cursor()
         try:
-            cur.execute("Select * from employee")
+            cur.execute("Select * from employees")
             rows=cur.fetchall()
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
             for row in rows:
@@ -232,12 +232,12 @@ class employeeClass:
             if self.var_emp_id.get()=="":
                 messagebox.showerror("Error","Employee Id Must Be Required",parent=self.root)
             else:
-                cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
+                cur.execute("Select * from employees where eid=?",(self.var_emp_id.get(),))
                 row = cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Invalid Employee ID",parent=self.root)
                 else:
-                    cur.execute("Update employee set name=?,email=?,gender=?,contact=?,dob=?,doj=?,password=?,utype=?,address=?,salary=? where eid=?",(
+                    cur.execute("Update employees set name=?,email=?,gender=?,contact=?,dob=?,doj=?,password=?,utype=?,address=?,salary=? where eid=?",(
                                                                 self.var_name.get(),
                                                                 self.var_email.get(),
                                                                 self.var_gender.get(),
@@ -263,14 +263,14 @@ class employeeClass:
             if self.var_emp_id.get()=="":
                 messagebox.showerror("Error","Employee Id Must Be Required",parent=self.root)
             else:
-                cur.execute("Select * from employee where eid=?",(self.var_emp_id.get(),))
+                cur.execute("Select * from employees where eid=?",(self.var_emp_id.get(),))
                 row = cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Invalid Employee ID",parent=self.root)
                 else:
                     op=messagebox.askyesno("Confirm","Do You Really Want To Delete",parent=self.root)
                     if op==True:
-                        cur.execute("delete from employee where eid=?",(self.var_emp_id.get(),))
+                        cur.execute("delete from employees where eid=?",(self.var_emp_id.get(),))
                         con.commit()
                         messagebox.showinfo("Success","Employee Data Deleted successfully",parent=self.root)
                         #self.show()
@@ -307,7 +307,7 @@ class employeeClass:
             elif self.var_searchtxt.get()=="":
                 messagebox.showerror("Error","Text Field Are input Required",parent=self.root)
             else:
-                cur.execute("Select * from employee where "+self.var_searchby.get()+" LIKE '%"+self.var_searchtxt.get()+"%'")
+                cur.execute("Select * from employees where "+self.var_searchby.get()+" LIKE '%"+self.var_searchtxt.get()+"%'")
                 rows=cur.fetchall()
                 if len(rows)!=0:
                     self.EmployeeTable.delete(*self.EmployeeTable.get_children())

@@ -135,7 +135,7 @@ class productClass:
         con=sqlite3.connect(database=r'ims.db')
         cur=con.cursor()
         try:
-                cur.execute("Select name from category")
+                cur.execute("Select name from categorys")
                 cat=cur.fetchall()
                 self.cat_list.append("Empty")
                 #print(cat)
@@ -149,7 +149,7 @@ class productClass:
                     self.cat_list.append(i[0])
                 #print(cat_list)
                 
-                cur.execute("Select name from supplier")
+                cur.execute("Select name from suppliers")
                 sup=cur.fetchall()
                 
                 if len(sup)>0:
@@ -171,12 +171,12 @@ class productClass:
             if self.var_cat.get()=="Select" or self.var_cat.get()=="Empty" or self.var_sup.get()=="Select" or self.var_name.get()=="":
                 messagebox.showerror("Error","All Field Are Required",parent=self.root)
             else:
-                cur.execute("Select * from producted where name=?",(self.var_name.get(),))
+                cur.execute("Select * from producteds where name=?",(self.var_name.get(),))
                 row = cur.fetchone()
                 if row!=None:
                     messagebox.showerror("Error","This product Already Available",parent=self.root)
                 else:
-                    cur.execute("Insert into producted (Category,Supplier,name,price,qty,status) values(?,?,?,?,?,?)",(
+                    cur.execute("Insert into producteds (Category,Supplier,name,price,qty,status) values(?,?,?,?,?,?)",(
                                                                 self.var_cat.get(),
                                                                 self.var_sup.get(),
                                                                 self.var_name.get(),
@@ -195,7 +195,7 @@ class productClass:
         con=sqlite3.connect(database=r'ims.db')
         cur=con.cursor()
         try:
-            cur.execute("Select * from producted")
+            cur.execute("Select * from producteds")
             rows=cur.fetchall()
             self.product_Table.delete(*self.product_Table.get_children())
             for row in rows:
@@ -223,12 +223,12 @@ class productClass:
             if self.var_pid.get()=="":
                 messagebox.showerror("Error","product Id Select In The List ",parent=self.root)
             else:
-                cur.execute("Select * from producted where pid=?",(self.var_pid.get(),))
+                cur.execute("Select * from producteds where pid=?",(self.var_pid.get(),))
                 row = cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Invalid product ID",parent=self.root)
                 else:
-                    cur.execute("Update producted set Category=?,Supplier=?,name=?,price=?,qty=?,status=? where pid=?",(
+                    cur.execute("Update producteds set Category=?,Supplier=?,name=?,price=?,qty=?,status=? where pid=?",(
                                                                 self.var_cat.get(),
                                                                 self.var_sup.get(),
                                                                 self.var_name.get(),
@@ -250,14 +250,14 @@ class productClass:
             if self.var_pid.get()=="":
                 messagebox.showerror("Error","product Id Must Be Required",parent=self.root)
             else:
-                cur.execute("Select * from producted where pid=?",(self.var_pid.get(),))
+                cur.execute("Select * from producteds where pid=?",(self.var_pid.get(),))
                 row = cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Invalid product ID",parent=self.root)
                 else:
                     op=messagebox.askyesno("Confirm","Do You Really Want To Delete",parent=self.root)
                     if op==True:
-                        cur.execute("delete from producted where pid=?",(self.var_pid.get(),))
+                        cur.execute("delete from producteds where pid=?",(self.var_pid.get(),))
                         con.commit()
                         messagebox.showinfo("Success","product Data Deleted successfully",parent=self.root)
                         #self.show()
@@ -287,7 +287,7 @@ class productClass:
             elif self.var_searchtxt.get()=="":
                 messagebox.showerror("Error","Text Field Are input Required",parent=self.root)
             else:
-                cur.execute("Select * from producted where "+self.var_searchby.get()+" LIKE '%"+self.var_searchtxt.get()+"%'")
+                cur.execute("Select * from producteds where "+self.var_searchby.get()+" LIKE '%"+self.var_searchtxt.get()+"%'")
                 rows=cur.fetchall()
                 if len(rows)!=0:
                     self.product_Table.delete(*self.product_Table.get_children())
